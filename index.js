@@ -29,10 +29,13 @@ console.log(processFirstItem(['foo','bar'],function(str){return str+str}));
   
   1. What is the difference between counter1 and counter2?
   
+  counter1 doesnt have count as a global variable, 2 cannot acces the variable within the function.
   2. Which of the two uses a closure? How can you tell?
-  
+  counter 1 uses closure because its a function within another function
   3. In what scenario would the counter1 code be preferable? In what scenario would 
+
      counter2 be better?  
+2 would not work because the variable isnt function scoped.
 */
 
 // counter1 code
@@ -154,16 +157,23 @@ Use the scoreboard function below to do the following:
   */
 
 function scoreboard(getInningScorecb, inningcb, number) {
-  return [`Inning 1: Away ${inningcb()} - Home ${inningcb()}", 
-  "Inning 2: Away ${inningcb()} - Home ${inningcb()}",
-  "Inning 3: Away ${inningcb()} - Home ${inningcb()}", 
-  "Inning 4: Away ${inningcb()} - Home ${inningcb()}", 
-  "Inning 5: Away ${inningcb()} - Home ${inningcb()}", 
-  "Inning 6: Away ${inningcb()} - Home ${inningcb()}", 
-  "Inning 7: Away ${inningcb()} - Home ${inningcb()}", 
-  "Inning 8: Away ${inningcb()} - Home ${inningcb()}",
-  "Inning 9: Away ${inningcb()} - Home ${inningcb()}", 
-  "Final Score: Away ${getInningScorecb}  - Home ${getInningScorecb}`];
+  const gameReport = [];
+  let finalHomeScore = 0;
+  let finalAwayScore = 0;
+  for( let i = 0; i < number; i++){
+    let currentInningScore = getInningScorecb(inningcb);
+    gameReport.push(`Inning ${i+1}: Away ${currentInningScore.Away} - Home ${currentInningScore.Home}`);
+    
+    finalHomeScore += currentInningScore.Home;
+    finalAwayScore += currentInningScore.Away;
+    
+  }
+  if(finalAwayScore === finalHomeScore){
+    gameReport.push(`This game will require extra innings: Away ${finalAwayScore} - Home ${finalHomeScore}`);
+    return gameReport;
+  }
+  gameReport.push(`Final Score: Away ${finalAwayScore} - Home ${finalHomeScore}`)
+  return gameReport;
 }
 console.log(scoreboard(getInningScore, inning, 9));
 
