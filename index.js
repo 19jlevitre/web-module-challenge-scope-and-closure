@@ -66,7 +66,7 @@ function inning(/*Code Here*/){
     /*Code Here*/
 }
 
-
+ 
 /* ⚾️⚾️⚾️ Task 3: finalScore() ⚾️⚾️⚾️
 Use the finalScore function below to do the following:
   1. Receive the callback function `inning` that was created in Task 2 
